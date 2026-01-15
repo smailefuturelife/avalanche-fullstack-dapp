@@ -12,11 +12,9 @@ import {
 import { injected } from 'wagmi/connectors';
 import { avalancheFuji } from 'wagmi/chains';
 
-// ==============================
-// 🔹 CONFIG
-// ==============================
 
-// ⚠️ HARUS address Fuji
+
+
 const CONTRACT_ADDRESS = '0x740F534cab196B819dBBfD1C2fBbA42cB17FCCA7';
 
 // ABI
@@ -38,31 +36,28 @@ const SIMPLE_STORAGE_ABI = [
 ];
 
 export default function Page() {
-  // ==============================
-  // 🔹 WALLET
-  // ==============================
+
+  // WALLET
+
   const { address, isConnected, chainId } = useAccount();
   const { connect, isPending: isConnecting } = useConnect();
   const { disconnect } = useDisconnect();
   const { switchChain } = useSwitchChain();
 
-  // ==============================
-  // 🔹 LOCAL STATE
-  // ==============================
+ 
+  //  LOCAL STATE
+
   const [inputValue, setInputValue] = useState('');
 
-  // ==============================
-  // 🔹 AUTO SWITCH KE FUJI
-  // ==============================
+================
   useEffect(() => {
     if (isConnected && chainId !== avalancheFuji.id) {
       switchChain({ chainId: avalancheFuji.id });
     }
   }, [isConnected, chainId, switchChain]);
 
-  // ==============================
-  // 🔹 READ CONTRACT
-  // ==============================
+ // CONTRACT
+ 
   const {
     data: value,
     isLoading: isReading,
@@ -74,9 +69,9 @@ export default function Page() {
     chainId: avalancheFuji.id,
   });
 
-  // ==============================
-  // 🔹 WRITE CONTRACT
-  // ==============================
+
+  //  WRITE CONTRACT
+
   const { writeContract, isPending: isWriting } = useWriteContract();
 
   const handleSetValue = () => {
@@ -95,9 +90,9 @@ export default function Page() {
     });
   };
 
-  // ==============================
-  // 🔹 UI
-  // ==============================
+
+  //  UI
+
   return (
     <main className="min-h-screen flex items-center justify-center bg-black text-white">
       <div className="w-full max-w-md border border-gray-700 rounded-lg p-6 space-y-6">
@@ -174,3 +169,4 @@ export default function Page() {
     </main>
   );
 }
+
